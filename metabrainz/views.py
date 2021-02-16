@@ -1,6 +1,8 @@
 import datetime
 from flask import Blueprint, render_template, redirect, url_for
 from metabrainz.model.user import User
+import sentry_sdk
+import logging
 
 index_bp = Blueprint('index', __name__)
 
@@ -13,6 +15,12 @@ def home():
         bad_users=User.get_featured(in_deadbeat_club=True, limit=4),
     )
 
+
+@index_bp.route('/debug-sentry')
+def debug_sentry():
+    logging.info("Test sending looging.info message")
+    sentry_sdk.capture_message("Test sending message using capture_message", level="info")
+    division = 1 / 0
 
 @index_bp.route('/about')
 def about():
