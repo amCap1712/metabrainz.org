@@ -20,6 +20,7 @@ def home():
 def debug_sentry():
     logging.info("Test sending looging.info message")
     sentry_sdk.capture_message("Test sending message using capture_message", level="info")
+    return render_template('index/about.html')
 
 
 @index_bp.route('/about')
